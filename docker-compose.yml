@@ -1,0 +1,62 @@
+services:
+  web:
+    image: php:8.2-apache
+    container_name: patasfelices_web
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - db
+    networks:
+      - patasfelices_network
+    command: >
+      bash -c "
+      apt-get update &&
+      apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev zlib1g-dev &&
+      docker-php-ext-configure gd --with-freetype --with-jpeg &&
+      docker-php-ext-install mysqli pdo pdo_mysql gd &&
+      a2enmod rewrite &&
+      chown -R www-data:www-data /var/www/html &&
+      chmod -R 755 /var/www/html &&
+      apache2-foreground
+      "
+
+  db:
+    image: mysql:8.0
+    container_name: patasfelices_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: patasfelices
+      MYSQL_USER: patasfelices_user
+      MYSQL_PASSWORD: patasfelices_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./patasfelices.sql:/docker-entrypoint-initdb.d/patasfelices.sql
+    networks:
+      - patasfelices_network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: patasfelices_phpmyadmin
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: rootpassword
+    depends_on:
+      - db
+    networks:
+      - patasfelices_network
+
+volumes:
+  db_data:
+
+networks:
+  patasfelices_network:
+    driver: bridge
