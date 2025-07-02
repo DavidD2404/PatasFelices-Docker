@@ -79,34 +79,6 @@ Navegador → web:8080 → db:3306
 Navegador → phpmyadmin:8081 → db:3306
 \`\`\`
 
-## 📁 Estructura del Proyecto
-
-\`\`\`
-patas-felices/
-├── admin/                  # Panel de administración
-│   ├── index.php          # Dashboard principal
-│   ├── productos.php      # Gestión de productos
-│   └── usuarios.php       # Gestión de usuarios
-├── componentes/           # Componentes reutilizables
-│   ├── header.php         # Cabecera del sitio
-│   ├── footer.php         # Pie de página
-│   └── conexion.php       # Conexión a la base de datos
-├── paginas/               # Páginas principales
-│   ├── inicio.php         # Página de inicio
-│   ├── productos.php      # Catálogo de productos
-│   ├── servicios.php      # Información de servicios
-│   └── contacto.php       # Formulario de contacto
-├── registro/              # Sistema de autenticación
-│   ├── login.php          # Procesamiento de login
-│   ├── alta.php           # Registro de usuarios
-│   └── reging.php         # Formulario de registro/login
-├── css/                   # Estilos CSS
-├── img/                   # Imágenes del sitio
-├── archivo/               # Archivos subidos por usuarios
-├── docker-compose.yml     # Configuración de Docker
-└── patasfelices.sql       # Base de datos inicial
-\`\`\`
-
 ## 👤 Usuarios de Prueba
 
 ### 🔑 **Administrador**
